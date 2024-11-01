@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package library;
+
+// Define the Library Service
+service LibraryService {
+  // Method to add a book
+  rpc AddBook (AddBookRequest) returns (AddBookResponse);
+  rpc SearchBook (SearchBookRequest) returns (SearchBookResponse);
+}
+
+// Message to represent a book
+message Book {
+  string title = 1;
+  string author = 2;
+  string type = 3; // e.g. CD, DVD, etc.
+  repeated string keywords = 4; // A list of keywords characterizing the book content
+}
+message Library {
+  repeated Book books = 1; // A list of books in the library
+}
+
+// Request message for AddBook
+message AddBookRequest {
+  Book book = 1; // The book to be added
+}
+
+// Response message for AddBook
+message AddBookResponse {
+  string message = 1; // "Added successfully" or "already_exist"
+}
+
+// Request message for SearchBook
+message SearchBookRequest {
+  repeated string keywords = 1;
+}
+
+// Response message for SearchBook
+message SearchBookResponse {
+  repeated Book books = 1; // List of books that match the search keywords
+}
